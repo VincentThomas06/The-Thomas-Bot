@@ -20,7 +20,7 @@ reactions = {}
 async def version(context):
 
     versionEmbend = discord.Embed(title= 'Current Version:', description= 'Early alpha stage', color=0x05cffc)
-    versionEmbend.add_field(name='Version Code:', value='v0.1', inline=False)
+    versionEmbend.add_field(name='Version Code:', value='v0.0.5', inline=False)
     versionEmbend.add_field(name='Date Released:', value='January 19th, 2021', inline=False)
     versionEmbend.set_footer(text='Created by Vincent aka @LarsOlof1337 (DK)')
 
@@ -32,7 +32,7 @@ async def help(context):
 
     helpEmbend = discord.Embed(
         title= 'Here are some Commands\nyou can use with this bot:', 
-        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins, \n--kick [@Person] (Only Admins can do this, and you cant kick Admins\nThere is more to come... stay tuned!', color=0x05cffc)
+        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
 
@@ -41,7 +41,7 @@ async def commands(context):
 
     helpEmbend = discord.Embed(
         title= 'Here are some Commands\nyou can use with this bot:', 
-        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins, \n--kick [@Person] (Only Admins can do this, and you cant kick Admins\nThere is more to come... stay tuned!', color=0x05cffc)
+        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
 
