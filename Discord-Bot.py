@@ -21,12 +21,20 @@ async def version(context):
     await context.message.channel.send(embed = versionEmbend)
 
 
-@client.command(name='help')
+@client.command(name='help', 'commands')
 async def help(context):
 
     helpEmbend = discord.Embed(
         title= 'Here are some Commands\nyou can use with this bot:', 
         description= '--help (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\nThere is more to come... stay tuned!', color=0x05cffc)
+        
+    await context.message.channel.send(embed = helpEmbend)
+
+async def commands(context):
+
+    helpEmbend = discord.Embed(
+        title= 'Here are some Commands\nyou can use with this bot:', 
+        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
 
