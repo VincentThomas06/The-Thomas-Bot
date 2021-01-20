@@ -121,6 +121,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'--help'))
     general_channel = client.get_channel(801062429731323925)
     await general_channel.send('Up\'n\'running boss!')
+    print('The Bot is Online!')
 
 
 #status=discord.Status., 
@@ -130,6 +131,7 @@ async def on_disconnect():
     general_channel = client.get_channel(801062429731323925)
     await general_channel.send('Adding more features to me? You\'ll love my better me!')
     await client.change_presence(status=discord.Status.offline)
+    print('The bot is offline!')
 
 
 
