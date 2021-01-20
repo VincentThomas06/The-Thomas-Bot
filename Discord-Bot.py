@@ -21,7 +21,7 @@ async def version(context):
     await context.message.channel.send(embed = versionEmbend)
 
 
-@client.command(name='help', 'commands')
+@client.command(name='help')
 async def help(context):
 
     helpEmbend = discord.Embed(
@@ -30,6 +30,7 @@ async def help(context):
         
     await context.message.channel.send(embed = helpEmbend)
 
+@client.command(name = 'commands')
 async def commands(context):
 
     helpEmbend = discord.Embed(
