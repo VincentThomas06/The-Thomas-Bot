@@ -1,1 +1,1 @@
-worker: python Weather-Bot.py
+worker: python Discord-Bot.py
