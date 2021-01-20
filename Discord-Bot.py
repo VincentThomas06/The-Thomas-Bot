@@ -3,6 +3,7 @@ import discord
 import json
 import requests
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 
 api_key = 'eb9d4b88480f4a672b237fb2b39fb156'
 #Client
@@ -26,7 +27,7 @@ async def help(context):
 
     helpEmbend = discord.Embed(
         title= 'Here are some Commands\nyou can use with this bot:', 
-        description= '--help\--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\nThere is more to come... stay tuned!', color=0x05cffc)
+        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
 
@@ -46,10 +47,11 @@ async def dm(context):
 
 
 @client.command(name = 'kick', pass_context = True)
-@commands.has_permission(kick_members = True)
+@has_permissions(administrator = True)
 async def kick(context, member: discord.Member):
+    
     await member.kick()
-    await conxext.send('User ' + member.display_name + 'has been kicked')
+    await context.send('User ' + member.display_name + ' has been kicked')
 
 
 
