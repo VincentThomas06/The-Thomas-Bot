@@ -45,6 +45,14 @@ async def dm(context):
     await context.message.author.send('This is a DM. Have a good day!')
 
 
+@client.command(name = 'kick', pass_context = True)
+@commands.has_permission(kick_members = True)
+async def kick(context, member: discord.Member):
+    await member.kick()
+    await conxext.send('User ' + member.display_name + 'has been kicked')
+
+
+
 @client.event
 async def on_ready():
     
