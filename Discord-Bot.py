@@ -1,14 +1,19 @@
 #Import Stuff
 import discord
+import logging
 import json
 import requests
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingRole
 
 
+intents = discord.Intents.default()
+intents.members = True
+client = commands.Bot(command_prefix='--', intents = intents)
+
 api_key = 'eb9d4b88480f4a672b237fb2b39fb156'
 #Client
-client = commands.Bot(command_prefix='--')
+#client = commands.Bot(command_prefix='--')
 client.remove_command('help')
 reaction_title = ''
 reactions = {}
@@ -137,6 +142,7 @@ async def reaction_send_post(context):
     
     await context.message.delete()
 
+            
 @client.event
 async def on_reaction_add(reaction, user):
 
@@ -145,8 +151,8 @@ async def on_reaction_add(reaction, user):
         message = reaction.message
 
         if str(message.id) == reaction_message_id:
-
-            role_to_give = ''
+            
+            role_to_give = ""
 
             for role in reactions:
                 if reactions[role] == reaction.emoji:
@@ -154,6 +160,16 @@ async def on_reaction_add(reaction, user):
 
             role_for_reaction = discord.utils.get(user.guild.roles, name = role_to_give)
             await user.add_roles(role_for_reaction)
+
+
+
+@client.event
+async def on_member_join(member):
+    role = discord.utils.get(member.server.roles, name = 'Member')
+    await client.add_roles(member,role)
+
+
+
 @client.event
 async def on_ready():
     
