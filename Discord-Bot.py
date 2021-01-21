@@ -12,6 +12,7 @@ client = commands.Bot(command_prefix='--')
 client.remove_command('help')
 reaction_title = ''
 reactions = {}
+reaction_message_id = ""
 
 
 
@@ -115,6 +116,44 @@ async def reaction_remove_role(context, role: discord.Role):
     print(reactions) 
 
 
+@client.command(name='reaction_send_post')
+async def reaction_send_post(context):
+
+    description = 'React to add the Roles!\n'
+
+    for role in reactions:
+        description += '`' + role + '` - ' + reactions[role] + '\n'
+
+    embed = discord.Embed(title = reaction_title, description = description, color = 0x05cffc)
+    
+
+    message = await context.send(embed=embed)
+
+    global reaction_message_id
+    reaction_message_id = str(message.id)
+
+    for role in reactions:
+        await message.add_reaction(reactions[role])
+    
+    await context.message.delete()
+
+@client.event
+async def on_reaction_add(reaction, user):
+
+    if not user.bot:
+
+        message = reaction.message
+
+        if str(message.id) == reaction_message_id:
+
+            role_to_give = ''
+
+            for role in reactions:
+                if reactions[role] == reaction.emoji:
+                    role_to_give = role
+
+            role_for_reaction = discord.utils.get(user.guild.roles, name = role_to_give)
+            await user.add_roles(role_for_reaction)
 @client.event
 async def on_ready():
     
