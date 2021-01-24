@@ -9,12 +9,12 @@ from discord.ext.commands import has_permissions, MissingRole
 
 intents = discord.Intents.default()
 intents.members = True
-client = commands.Bot(command_prefix='--', intents = intents)
+bot = commands.Bot(command_prefix='--', intents = intents)
 
 api_key = 'eb9d4b88480f4a672b237fb2b39fb156'
-#Client
-#client = commands.Bot(command_prefix='--')
-client.remove_command('help')
+#bot
+#bot = commands.Bot(command_prefix='--')
+bot.remove_command('help')
 reaction_title = ''
 reactions = {}
 reaction_message_id = ""
@@ -22,7 +22,7 @@ reaction_message_id = ""
 
 
 # -- + Command Code
-@client.command(name='version')
+@bot.command(name='version')
 async def version(context):
 
     versionEmbend = discord.Embed(title= 'Current Version:', description= 'Early alpha stage', color=0x05cffc)
@@ -33,7 +33,7 @@ async def version(context):
     await context.message.channel.send(embed = versionEmbend)
 
 
-@client.command(name='help')
+@bot.command(name='help')
 async def help(context):
 
     helpEmbend = discord.Embed(
@@ -42,7 +42,7 @@ async def help(context):
         
     await context.message.channel.send(embed = helpEmbend)
 
-@client.command(name = 'commands')
+@bot.command(name = 'commands')
 async def commands(context):
 
     helpEmbend = discord.Embed(
@@ -51,13 +51,13 @@ async def commands(context):
         
     await context.message.channel.send(embed = helpEmbend)
 
-@client.command(name='dm')
+@bot.command(name='dm')
 async def dm(context):
 
     await context.message.author.send('This is a DM. Have a good day!')
 
 
-@client.command(name = 'kick', pass_context = True)
+@bot.command(name = 'kick', pass_context = True)
 @has_permissions(administrator = True)
 async def kick(context, member: discord.Member):
     try:
@@ -67,7 +67,7 @@ async def kick(context, member: discord.Member):
     except:
         await context.send(CommandInvokeError)
 
-@client.command(name = 'ban', pass_context = True)
+@bot.command(name = 'ban', pass_context = True)
 @has_permissions(administrator = True)
 async def ban(context, member: discord.Member, *, reason = None):
 
@@ -75,7 +75,7 @@ async def ban(context, member: discord.Member, *, reason = None):
     await context.send('User ' + member.display_name + ' has been banned')
 
 
-@client.command(name='reaction_create_post')
+@bot.command(name='reaction_create_post')
 async def reaction_create_post(context):
 
     embed = discord.Embed(title='React Here for Role!', color = 0x05cffc)
@@ -86,7 +86,7 @@ async def reaction_create_post(context):
     await context.send(embed=embed)
     await context.message.delete()
 
-@client.command(name='reaction_set_title')
+@bot.command(name='reaction_set_title')
 async def reaction_set_title(context, new_title):
 
     global reaction_title
@@ -95,7 +95,7 @@ async def reaction_set_title(context, new_title):
     await context.message.delete()
 
 
-@client.command(name='reaction_add_role')
+@bot.command(name='reaction_add_role')
 async def reaction_add_role(context, role: discord.Role, reaction):
 
     if role != None:
@@ -108,7 +108,7 @@ async def reaction_add_role(context, role: discord.Role, reaction):
     print(reactions)
 
 
-@client.command(name='reaction_remove_role')
+@bot.command(name='reaction_remove_role')
 async def reaction_remove_role(context, role: discord.Role):
 
     if role.name in reactions:
@@ -121,7 +121,7 @@ async def reaction_remove_role(context, role: discord.Role):
     print(reactions) 
 
 
-@client.command(name='reaction_send_post')
+@bot.command(name='reaction_send_post')
 async def reaction_send_post(context):
 
     description = 'React to add the Roles!\n'
@@ -143,7 +143,7 @@ async def reaction_send_post(context):
     await context.message.delete()
 
             
-@client.event
+@bot.event
 async def on_reaction_add(reaction, user):
 
     if not user.bot:
@@ -163,33 +163,36 @@ async def on_reaction_add(reaction, user):
 
 
 
-@client.event
+@bot.event
 async def on_member_join(member):
     role = discord.utils.get(member.server.roles, name = 'Member')
-    await client.add_roles(member,role)
+    await bot.add_roles(member,role)
+    channel = bot.get_channel(692278898037096448)
+    embed=discord.Embed(title="Welcome!",description=f"{member.mention} Just Joined")
+    await channel.send(embed=embed)
 
 
 
-@client.event
+@bot.event
 async def on_ready():
     
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'--help'))
-    general_channel = client.get_channel(801062429731323925)
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'--help'))
+    general_channel = bot.get_channel(801062429731323925)
     await general_channel.send('Up\'n\'running boss!')
     print('The Bot is Online!')
 
 
 #status=discord.Status., 
 
-@client.event
+@bot.event
 async def on_disconnect():
-    general_channel = client.get_channel(801062429731323925)
+    general_channel = bot.get_channel(801062429731323925)
     await general_channel.send('Adding more features to me? You\'ll love my better me!')
-    await client.change_presence(status=discord.Status.offline)
+    await bot.change_presence(status=discord.Status.offline)
     print('The bot is offline!')
 
 
 
 
 
-client.run('Nzk5MzM1MDE0MzE0OTM0Mjcy.YACEvg.EFTYzAygVcjt0ccXLgytE-BhoUE')
+bot.run('Nzk5MzM1MDE0MzE0OTM0Mjcy.YACEvg.EFTYzAygVcjt0ccXLgytE-BhoUE')
