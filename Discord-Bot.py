@@ -31,6 +31,7 @@ async def version(context):
     versionEmbend.set_footer(text='Created by Vincent aka @LarsOlof1337 (DK)')
 
     await context.message.channel.send(embed = versionEmbend)
+    await context.message.delete()
 
 
 @bot.command(name='help')
@@ -41,6 +42,7 @@ async def help(context):
         description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
+    await context.message.delete()
 
 @bot.command(name = 'commands')
 async def commands(context):
@@ -50,11 +52,12 @@ async def commands(context):
         description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
-
+    await context.message.delete()
 @bot.command(name='dm')
 async def dm(context):
 
     await context.message.author.send('This is a DM. Have a good day!')
+    await context.message.delete()
 
 
 @bot.command(name = 'kick', pass_context = True)
@@ -64,6 +67,7 @@ async def kick(context, member: discord.Member):
         CommandInvokeError = ('Whops! Something went wrong... either you\'ve spellt it wrong or you tried to kick a Admin')
         await member.kick()
         await context.send('User ' + member.display_name + ' has been kicked')
+        await context.message.delete()
     except:
         await context.send(CommandInvokeError)
 
@@ -79,9 +83,10 @@ async def ban(context, member: discord.Member, *, reason = None):
 async def reaction_create_post(context):
 
     embed = discord.Embed(title='React Here for Role!', color = 0x05cffc)
-    embed.add_field(name='Set Title', value = '--reaction_set_title \'New Title\'', inline = False)
+    embed.add_field(name='Set Title', value = '--reaction_set_title \"New Title\"', inline = False)
     embed.add_field(name='Add Role', value = '--reaction_add_role @Role EMOJI_HERE', inline = False)
     embed.add_field(name='Remove Role', value = '--reaction_remove_role @Role', inline = False)
+    embed.add_field(name='Send Post', value = '--reaction_send_post', inline = False)
     
     await context.send(embed=embed)
     await context.message.delete()
@@ -91,7 +96,7 @@ async def reaction_set_title(context, new_title):
 
     global reaction_title
     reaction_title = new_title
-    await context.send('The title for the message is now `' + reaction_title + '`!')
+#    await context.send('The title for the message is now `' + reaction_title + '`!')
     await context.message.delete()
 
 
@@ -100,7 +105,7 @@ async def reaction_add_role(context, role: discord.Role, reaction):
 
     if role != None:
         reactions[role.name] = reaction
-        await context.send('Role `' + role.name + '` has been added with the emoji ' + reaction)
+#        await context.send('Role `' + role.name + '` has been added with the emoji ' + reaction)
         await context.message.delete()
     else:
         await context.send('Please try again')
@@ -113,7 +118,7 @@ async def reaction_remove_role(context, role: discord.Role):
 
     if role.name in reactions:
         del reactions[role.name]
-        await context.send('Role `' + role.name + '` has been deleted!')
+#        await context.send('Role `' + role.name + '` has been deleted!')
         await context.message.delete()
     else:
         await context.send('That role was not added!')
