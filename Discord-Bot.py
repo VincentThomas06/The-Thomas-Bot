@@ -2,8 +2,10 @@
 import discord
 import logging
 import json
+from discord.member import Member
 import requests
 from discord.ext import commands
+from discord.utils import get
 from discord.ext.commands import has_permissions, MissingRole
 
 
@@ -12,8 +14,6 @@ intents.members = True
 bot = commands.Bot(command_prefix='--', intents = intents)
 
 api_key = 'eb9d4b88480f4a672b237fb2b39fb156'
-#bot
-#bot = commands.Bot(command_prefix='--')
 bot.remove_command('help')
 reaction_title = ''
 reactions = {}
@@ -25,12 +25,13 @@ reaction_message_id = ""
 @bot.command(name='version')
 async def version(context):
 
-    versionEmbend = discord.Embed(title= 'Current Version:', description= 'Early alpha stage', color=0x05cffc)
-    versionEmbend.add_field(name='Version Code:', value='v0.0.5', inline=False)
-    versionEmbend.add_field(name='Date Released:', value='January 19th, 2021', inline=False)
-    versionEmbend.set_footer(text='Created by Vincent aka @LarsOlof1337 (DK)')
+    versionEmbed = discord.Embed(title= 'Current Version:', description= 'Early alpha stage', color=0x05cffc)
+    versionEmbed.add_field(name='Version Code:', value='v0.0.5', inline=False)
+    versionEmbed.add_field(name='Date Released:', value='January 19th, 2021', inline=False)
+    versionEmbed.set_footer(text='Created by Vincent aka @LarsOlof1337 (DK)')
+    versionEmbed.set_author(name="The Thomas Bot")
 
-    await context.message.channel.send(embed = versionEmbend)
+    await context.message.channel.send(embed = versionEmbed)
     await context.message.delete()
 
 
@@ -59,16 +60,27 @@ async def dm(context):
     await context.message.author.send('This is a DM. Have a good day!')
     await context.message.delete()
 
+@bot.command(aliases=['latency'])
+async def ping(ctx):
+    await ctx.send(f'The current latency is: {round(bot.latency * 1000)} milliseconds')
+
+
+
+
+
+
+
 
 @bot.command(name = 'kick', pass_context = True)
 @has_permissions(administrator = True)
 async def kick(context, member: discord.Member):
     try:
-        CommandInvokeError = ('Whops! Something went wrong... either you\'ve spellt it wrong or you tried to kick a Admin')
+        
         await member.kick()
         await context.send('User ' + member.display_name + ' has been kicked')
         await context.message.delete()
     except:
+        CommandInvokeError = ('Whops! Something went wrong... either you\'ve spellt it wrong or you tried to kick a Admin')
         await context.send(CommandInvokeError)
 
 @bot.command(name = 'ban', pass_context = True)
@@ -105,7 +117,7 @@ async def reaction_add_role(context, role: discord.Role, reaction):
 
     if role != None:
         reactions[role.name] = reaction
-#        await context.send('Role `' + role.name + '` has been added with the emoji ' + reaction)
+        await context.send('Role `' + role.name + '` has been added with the emoji ' + reaction)
         await context.message.delete()
     else:
         await context.send('Please try again')
@@ -114,10 +126,11 @@ async def reaction_add_role(context, role: discord.Role, reaction):
 
 
 @bot.command(name='reaction_remove_role')
-async def reaction_remove_role(context, role: discord.Role):
+async def reaction_remove_role(context, role: discord.Role, reaction):
 
-    if role.name in reactions:
-        del reactions[role.name]
+    if role != None:
+        reactions[role.name] == reaction
+        del reaction
 #        await context.send('Role `' + role.name + '` has been deleted!')
         await context.message.delete()
     else:
@@ -129,13 +142,12 @@ async def reaction_remove_role(context, role: discord.Role):
 @bot.command(name='reaction_send_post')
 async def reaction_send_post(context):
 
-    description = 'React to add the Roles!\n'
-
+    description = 'React to add all the roles!\n'
     for role in reactions:
         description += '`' + role + '` - ' + reactions[role] + '\n'
 
-    embed = discord.Embed(title = reaction_title, description = description, color = 0x05cffc)
-    
+    embed = discord.Embed(title = reaction_title, description=description, color = 0x05cffc)
+    embed.set_author(name='The Thomas Bot')
 
     message = await context.send(embed=embed)
 
@@ -146,6 +158,19 @@ async def reaction_send_post(context):
         await message.add_reaction(reactions[role])
     
     await context.message.delete()
+
+
+@bot.command(name='rules')
+async def rules(context):
+        
+    rules_embed = discord.Embed(title = 'Rules:', description = 'test', color = 0x5cffc)
+    rules_embed.add_field(name = 'hello', value = 'add field value', inline = False)
+    rules_embed.set_author(name = 'The Thomas Bot')
+    
+    await context.message.delete()
+    
+    await context.send(embed = rules_embed)
+    
 
             
 @bot.event
@@ -167,14 +192,11 @@ async def on_reaction_add(reaction, user):
             await user.add_roles(role_for_reaction)
 
 
-
 @bot.event
 async def on_member_join(member):
-    role = discord.utils.get(member.server.roles, name = 'Member')
-    await bot.add_roles(member,role)
-    channel = bot.get_channel(692278898037096448)
-    embed=discord.Embed(title="Welcome!",description=f"{member.mention} Just Joined")
-    await channel.send(embed=embed)
+    role = get(member.guild.roles, name='Member')
+    await member.add_roles(role)
+    print(f'{member} was given role Member')
 
 
 
@@ -193,7 +215,7 @@ async def on_ready():
 async def on_disconnect():
     general_channel = bot.get_channel(801062429731323925)
     await general_channel.send('Adding more features to me? You\'ll love my better me!')
-    await bot.change_presence(status=discord.Status.offline)
+    await bot.change_presence(status=discord.Status.online)
     print('The bot is offline!')
 
 
