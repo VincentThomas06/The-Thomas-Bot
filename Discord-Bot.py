@@ -40,7 +40,7 @@ async def help(context):
 
     helpEmbend = discord.Embed(
         title= 'Here are some Commands\nyou can use with this bot:', 
-        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\nThere is more to come... stay tuned!', color=0x05cffc)
+        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\n--ping (Checks how much of a delay the bot has)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
     await context.message.delete()
@@ -50,7 +50,7 @@ async def commands(context):
 
     helpEmbend = discord.Embed(
         title= 'Here are some Commands\nyou can use with this bot:', 
-        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\nThere is more to come... stay tuned!', color=0x05cffc)
+        description= '--help/--commands (This command)\n--version (gives you the version of this bot)\n--dm (Dm\'s you)\n--(location) (This tells you the weather for your location)\n--ban [@Person] (Only Admins can do this, and you cant ban Admins)\n--kick [@Person] (Only Admins can do this, and you cant kick Admins)\n--ping (Checks how much of a delay the bot has)\nThere is more to come... stay tuned!', color=0x05cffc)
         
     await context.message.channel.send(embed = helpEmbend)
     await context.message.delete()
