@@ -29,7 +29,7 @@ class Admin_Commands(commands.Cog):
             print(ctx.command.name + ' was executed successfully')
         except:
             Error = 'Sorry, that didn\'t! Either you tried to kick an Admin or you spelled the wrong name...'
-            ctx.message.send('Error')
+            ctx.message.send(Error)
 
 
 
@@ -51,7 +51,7 @@ class Admin_Commands(commands.Cog):
 
 
 
-    @commands.command(name='kill', aliases=['killswitch', 'k', 'RIP'])
+    @commands.command(name='kill', aliases=['killswitch', 'k', 'RIP'], brief='[Only Users with Bot-dev can use this]')
     @commands.has_role('Bot-dev')
     async def logout(self, ctx):
         await bot.change_presence(status=discord.Status.offline)
