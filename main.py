@@ -2,9 +2,7 @@ import discord
 from discord.ext import commands
 from pretty_help import PrettyHelp, Navigation
 from discord.utils import get
-from dotenv import load_dotenv
 import time
-load_dotenv()
 import json
 import os
 
@@ -79,4 +77,4 @@ for filename in os.listdir('./cogs'):
 
 
 
-bot.run(os.getenv('TOKEN'))
+bot.run('Nzk5MzM1MDE0MzE0OTM0Mjcy.YACEvg.DWZ9HpVTgMWvNzvqujhqwc1scaM')
