@@ -19,7 +19,7 @@ class Admin_Commands(commands.Cog):
 
 
     @commands.command(name = 'kick', pass_ctx = True, brief='[Only Admins Can use this]')
-    @commands.has_permissions(administrator = True)
+    @commands.has_role('Admin')
     async def kick(self, ctx, member: discord.Member):
         try:
 
@@ -34,7 +34,7 @@ class Admin_Commands(commands.Cog):
 
 
     @commands.command(name = 'ban', pass_ctx = True, brief='[Only Admins can use this]')
-    @commands.has_permissions(administrator = True)
+    @commands.has_role('Admin')
     async def ban(self, ctx, member: discord.Member, *, reason = None):
 
         await member.ban(reason=reason, brief='[Only Admins can use this]')
@@ -44,7 +44,7 @@ class Admin_Commands(commands.Cog):
 
 
     @commands.command(name='clear', brief='[Only Admins can use this]')
-    @commands.has_permissions(administrator = True)
+    @commands.has_role('Admin')
     async def clear(self, ctx, amount = 1):
         await ctx.channel.purge(limit=amount+1)
         print(str(amount) + ' messages deleted')
@@ -54,11 +54,10 @@ class Admin_Commands(commands.Cog):
     @commands.command(name='kill', aliases=['killswitch', 'k', 'RIP'], brief='[Only Users with Bot-dev can use this]')
     @commands.has_role('Bot-dev')
     async def logout(self, ctx):
-        await bot.change_presence(status=discord.Status.offline)
         kill_embed = discord.Embed(title='Killing...', description='I was killed by @' + str(ctx.author), timestamp=ctx.message.created_at)
         channel = ctx.guild.get_channel(812780688881221633)
         await channel.send(embed=kill_embed)
-        await commands.logout()
+        await self.bot.logout()
 
 
 

@@ -16,7 +16,7 @@ class Covid(commands.Cog):
         time.sleep(0.4)
         print('Covid Command | Cog Loaded')
 
-    @commands.command(name='c')
+    @commands.command(name='c', alises=['corona', 'covid'])
     async def c(self, ctx, *, countryName = None):
 
         try:
@@ -58,7 +58,7 @@ class Covid(commands.Cog):
                 embed2.set_thumbnail(url="https://cdn.discordapp.com/attachments/564520348821749766/701422183217365052/2Q.png")
                 await ctx.send(embed=embed2)
                 level = 'INFO: '
-                print(level + 'Covid: ' + countryName.capitalize() + ' was executed successfully')
+                print(countryName.capitalize() + ' was executed successfully')
 
         except:
             embed3 = discord.Embed(title="Invalid Country Name Or API Error! Try Again..!", colour=0xff0000, timestamp=ctx.message.created_at)
