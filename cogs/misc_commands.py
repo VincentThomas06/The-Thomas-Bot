@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 import time
 
-
+color = 0x05cffc
 
 class Basic_Commands(commands.Cog):
     def __init__(self, bot):
@@ -25,6 +25,12 @@ class Basic_Commands(commands.Cog):
         versionEmbed.set_footer(text='Created by Vincent aka @LarsOlof1337')
         versionEmbed.set_author(name="The Thomas Bot")
         await ctx.send(embed = versionEmbed)
+        print(ctx.command.name.capitalize() + ' was executed successfully')
+
+    @commands.command(name='Support')
+    async def Support(self, ctx):
+        supportembed = discord.Embed(title='Thomas Bot help', description='✅ If you are new to the bot type ´.help´\n\n🖱️ [Invite Me!](https://discord.com/api/oauth2/authorize?client_id=799335014314934272&permissions=8&scope=bot)', color=color)
+        await ctx.send(embed=supportembed)
         print(ctx.command.name.capitalize() + ' was executed successfully')
 
 
