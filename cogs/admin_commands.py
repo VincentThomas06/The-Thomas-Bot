@@ -51,7 +51,7 @@ class Admin_Commands(commands.Cog):
 
 
 
-    @commands.command(name='kill', aliases=['killswitch', 'k', 'RIP'], brief='[Only Users with Bot-dev can use this]')
+    @commands.command(name='kill', aliases=['killswitch', 'k', 'RIP'], brief='[Only Users with Bot-dev role can use this]')
     @commands.has_role('Bot-dev')
     async def logout(self, ctx):
         kill_embed = discord.Embed(title='Killing...', description='I was killed by @' + str(ctx.author), timestamp=ctx.message.created_at)

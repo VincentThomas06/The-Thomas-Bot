@@ -8,7 +8,7 @@ import time
 color = 0x05cffc
 
 
-class misc_apis(commands.Cog):
+class Random_Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -18,7 +18,7 @@ class misc_apis(commands.Cog):
         print('Api Commands | Cog Loaded')
 
 
-    @commands.command(name='f')
+    @commands.command(name='f', aliases=['fact', 'facts about',])
     async def f(self, ctx, animal: str):
         if animal.lower() in ('dog', 'cat', 'panda', 'koala', 'bird', 'fox'):
             URL = f'https://some-random-api.ml/facts/{animal.lower()}'
@@ -118,4 +118,4 @@ class misc_apis(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(misc_apis(bot))
+    bot.add_cog(Random_Commands(bot))

@@ -14,7 +14,10 @@ color = 0x05cffc
 
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(commands.when_mentioned_or('.'), intents = intents, description = 'Prefix = .', case_insensitive=True, help_command = PrettyHelp(navigation=nav, color=color, active_time=30))
+bot = commands.Bot(commands.when_mentioned_or('.'), intents = intents, description = 'Prefix = \".\"\n**[Invite Me!](https://discord.com/api/oauth2/authorize?client_id=799335014314934272&permissions=8&scope=bot)**', case_insensitive=True, help_command = PrettyHelp(navigation=nav, color=color, active_time=30))
+
+
+
 
 
 @bot.event

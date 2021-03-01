@@ -20,5 +20,12 @@ class Invite(commands.Cog):
         invitelink = await discord.abc.GuildChannel.create_invite(ctx.message.channel, max_uses=uses,max_age=time_in_seconds)
         await ctx.send(invitelink)
 
+
+    @commands.command(name='invitebot')
+    async def invitebot(self, ctx):
+        embed = discord.Embed(title='**Invite Link:**', brief="Invites the bot in your servers!", description='**[Invite Me!](https://discord.com/api/oauth2/authorize?client_id=799335014314934272&permissions=8&scope=bot)**')
+
+        await ctx.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(Invite(bot))

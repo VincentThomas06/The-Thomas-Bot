@@ -17,12 +17,12 @@ class Basic_Commands(commands.Cog):
 
 
 
-    @commands.command(name='version', brief='Shows what version the bot is')
+    @commands.command(name='Info', brief='brief Info about the Bot')
     async def version(self, ctx):
         versionEmbed = discord.Embed(title= 'Current Version:', description= 'Alpha stage', color=0x05cffc)
         versionEmbed.add_field(name='Version Code:', value='v0.1', inline=False)
         versionEmbed.add_field(name='Date Released:', value='January 19th, 2021', inline=False)
-        versionEmbed.set_footer(text='Created by Vincent aka @LarsOlof1337 (DK)')
+        versionEmbed.set_footer(text='Created by Vincent aka @LarsOlof1337')
         versionEmbed.set_author(name="The Thomas Bot")
         await ctx.send(embed = versionEmbed)
         print(ctx.command.name.capitalize() + ' was executed successfully')
