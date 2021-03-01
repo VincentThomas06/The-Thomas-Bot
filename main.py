@@ -32,6 +32,6 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
 
-TOKEN_KEY = os.getenv(‘TOKEN’)
+TOKEN_KEY = os.getenv('TOKEN')
 
 bot.run(TOKEN_KEY)
