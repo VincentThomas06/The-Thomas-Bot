@@ -81,4 +81,4 @@ class ReactionRole(commands.Cog):
                 print('Role not found')
 
 def setup(bot):
-    bot.add_cog(Reaction_role(bot))
+    bot.add_cog(ReactionRole(bot))

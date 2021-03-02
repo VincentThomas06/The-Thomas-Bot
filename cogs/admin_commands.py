@@ -47,4 +47,4 @@ class AdminCommands(commands.Cog):
         await self.bot.logout()
 
 def setup(bot):
-    bot.add_cog(Admin_Commands(bot))
+    bot.add_cog(AdminCommands(bot))

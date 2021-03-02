@@ -32,4 +32,4 @@ class ErrorHandling(commands.Cog):
             await ctx.send(embed=Missing_Role_embed)
 
 def setup(bot):
-    bot.add_cog(error_handling(bot))
+    bot.add_cog(ErrorHandling(bot))

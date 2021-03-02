@@ -90,4 +90,4 @@ class RandomCommands(commands.Cog):
         await ctx.send(data.get('advice'))
 
 def setup(bot):
-    bot.add_cog(Random_Commands(bot))
+    bot.add_cog(RandomCommands(bot))
