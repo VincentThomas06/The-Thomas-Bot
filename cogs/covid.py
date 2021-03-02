@@ -8,9 +8,6 @@ class Covid(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
-
-
     @commands.Cog.listener()
     async def on_ready(self):
         time.sleep(0.4)
@@ -23,7 +20,6 @@ class Covid(commands.Cog):
             if countryName is None:
                 embed=discord.Embed(title="This command is used like this: ``` .covid [country]```", colour=0x05cffc, timestamp=ctx.message.created_at)
                 await ctx.send(embed=embed)
-
 
             else:
                 url = f"https://coronavirus-19-api.herokuapp.com/countries/{countryName}"
@@ -41,7 +37,6 @@ class Covid(commands.Cog):
                 deathsPerOneMillion = json_stats["deathsPerOneMillion"]
                 totalTests = json_stats["totalTests"]
                 testsPerOneMillion = json_stats["testsPerOneMillion"]
-
                 embed2 = discord.Embed(title=f"**COVID-19 Status Of {country}**!", description=None, colour=0x0000ff, timestamp=ctx.message.created_at)
                 embed2.add_field(name="**Total Cases**", value=totalCases, inline=True)
                 embed2.add_field(name="**Cases Today**", value=todayCases, inline=True)
@@ -54,19 +49,16 @@ class Covid(commands.Cog):
                 embed2.add_field(name="**Deaths Per One Million**", value=deathsPerOneMillion, inline=True)
                 embed2.add_field(name="**Total Tests**", value=totalTests, inline=True)
                 embed2.add_field(name="**Tests Per One Million**", value=testsPerOneMillion, inline=True)
-
                 embed2.set_thumbnail(url="https://cdn.discordapp.com/attachments/564520348821749766/701422183217365052/2Q.png")
                 await ctx.send(embed=embed2)
                 level = 'INFO: '
                 print(countryName.capitalize() + ' was executed successfully')
-
         except:
             embed3 = discord.Embed(title="Invalid Country Name Or API Error! Try Again..!", colour=0xff0000, timestamp=ctx.message.created_at)
             embed3.set_author(name="Error!")
             await ctx.send(embed=embed3)
             level = 'ERROR: '
             print('Covid: ' + countryName + ' failed to execute')
-
 
 def setup(bot):
     bot.add_cog(Covid(bot))

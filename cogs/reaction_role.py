@@ -4,17 +4,13 @@ from discord.utils import get, find
 import os
 import time
 
-
 class Reaction_role(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
-
     @commands.Cog.listener()
     async def on_ready(self):
         print('Reaction Role Commands | Cog Loaded')
-
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -49,9 +45,6 @@ class Reaction_role(commands.Cog):
                     print('Member not found')
             else:
                 print('Role not found')
-
-
-
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
