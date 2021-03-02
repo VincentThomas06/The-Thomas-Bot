@@ -35,7 +35,7 @@ class BasicCommands(commands.Cog):
 
     @commands.command(name='invitebot', brief="Invites the bot in your servers!")
     async def invitebot(self, ctx):
-        embed = discord.Embed(title='**Invite Link:**', , description='**[Invite Me!](https://discord.com/api/oauth2/authorize?client_id=799335014314934272&permissions=8&scope=bot)**')
+        embed = discord.Embed(title='**Invite Link:**', description='**[Invite Me!](https://discord.com/api/oauth2/authorize?client_id=799335014314934272&permissions=8&scope=bot)**')
         await ctx.send(embed=embed)
 
 def setup(bot):

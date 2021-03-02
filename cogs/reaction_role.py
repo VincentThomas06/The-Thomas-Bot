@@ -4,7 +4,7 @@ from discord.utils import get, find
 import os
 import time
 
-class Reaction_role(commands.Cog):
+class ReactionRole(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
