@@ -4,21 +4,23 @@ import requests
 import time
 from discord.ext import commands
 
+color = 0x05cffc
+
 class Covid(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.4)
+        time.sleep(0.1)
         print('Covid Command | Cog Loaded')
 
-    @commands.command(name='c', alises=['corona', 'covid'])
+    @commands.command(name='c', alises=['corona', 'covid'], brief='.c {county} for corona stats')
     async def c(self, ctx, *, countryName = None):
 
         try:
             if countryName is None:
-                embed=discord.Embed(title="This command is used like this: ``` .covid [country]```", colour=0x05cffc, timestamp=ctx.message.created_at)
+                embed=discord.Embed(title="This command is used like this: ``` .covid [country]```", colour=color, timestamp=ctx.message.created_at)
                 await ctx.send(embed=embed)
 
             else:
@@ -37,7 +39,7 @@ class Covid(commands.Cog):
                 deathsPerOneMillion = json_stats["deathsPerOneMillion"]
                 totalTests = json_stats["totalTests"]
                 testsPerOneMillion = json_stats["testsPerOneMillion"]
-                embed2 = discord.Embed(title=f"**COVID-19 Status Of {country}**!", description=None, colour=0x0000ff, timestamp=ctx.message.created_at)
+                embed2 = discord.Embed(title=f"**COVID-19 Status Of {country}**!", description=None, colour=color, timestamp=ctx.message.created_at)
                 embed2.add_field(name="**Total Cases**", value=totalCases, inline=True)
                 embed2.add_field(name="**Cases Today**", value=todayCases, inline=True)
                 embed2.add_field(name="**Total Deaths**", value=totalDeaths, inline=True)

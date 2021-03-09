@@ -1,6 +1,6 @@
-
 import discord
 from discord.ext import commands
+
 color = 0x05cffc
 
 class ErrorHandling(commands.Cog):

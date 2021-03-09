@@ -2,10 +2,10 @@ import discord
 from discord.ext import commands
 from aiohttp import request
 import requests
-from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import time
 color = 0x05cffc
+
 
 class RandomCommands(commands.Cog):
     def __init__(self, bot):
@@ -13,10 +13,10 @@ class RandomCommands(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
+        time.sleep(0.2)
         print('Api Commands | Cog Loaded')
 
-    @commands.command(name='f', aliases=['fact', 'facts about',])
+    @commands.command(name='f', aliases=['fact'])
     async def f(self, ctx, animal: str):
         if animal.lower() in ('dog', 'cat', 'panda', 'koala', 'bird', 'fox'):
             URL = f'https://some-random-api.ml/facts/{animal.lower()}'
@@ -24,7 +24,8 @@ class RandomCommands(commands.Cog):
                 if response.status == 200:
                     data = await response.json()
                     fact = data['fact']
-                    fact_embed = discord.Embed(title=f'**Fact | {animal.capitalize()}**', description=data['fact'], timestamp=ctx.message.created_at, color=color)
+                    fact_embed = discord.Embed(
+                        title=f'**Fact | {animal.capitalize()}**', description=data['fact'], timestamp=ctx.message.created_at, color=color)
                     if animal.lower() in ('dog'):
                         URL = "https://api.thedogapi.com/v1/images/search/?api_key=b9b7d56f-fe95-4554-aacd-6fe6777ed06c"
                         async with request("GET", URL, headers={}) as response:
@@ -35,7 +36,8 @@ class RandomCommands(commands.Cog):
                                 doggo = (doggo.get('breeds'))
                                 doggo = doggo[0]
                                 race = (doggo.get('name'))
-                                fact_embed = discord.Embed(title=f'**Fact | {animal.capitalize()}** | {race}', description=fact, timestamp=ctx.message.created_at, color=color)
+                                fact_embed = discord.Embed(
+                                    title=f'**Fact | {animal.capitalize()}** | {race}', description=fact, timestamp=ctx.message.created_at, color=color)
                                 fact_embed.set_image(url=image)
                     if animal.lower() in ('cat'):
                         URL = 'https://api.thecatapi.com/v1/images/search'
@@ -43,7 +45,7 @@ class RandomCommands(commands.Cog):
                             if response.status == 200:
                                 data = await response.json()
                                 data = data[0]
-                                fact_embed.set_image(url= data['url'])
+                                fact_embed.set_image(url=data['url'])
                                 print(data['url'])
                                 print('Cat command executed')
             await ctx.send(embed=fact_embed)
@@ -57,7 +59,8 @@ class RandomCommands(commands.Cog):
         async with request("GET", URL, headers={}) as response:
             if response.status == 200:
                 data = await response.json()
-                advise_embed = discord.Embed(title="**Joke**", description=f"**{data['joke']}**", timestamp=ctx.message.created_at, color=color)
+                advise_embed = discord.Embed(
+                    title="**Joke**", description=f"**{data['joke']}**", timestamp=ctx.message.created_at, color=color)
                 await ctx.send(embed=advise_embed)
 
     @commands.command(name='jokewithresponse', aliases=['joke2', 'telljoke'])
@@ -66,9 +69,10 @@ class RandomCommands(commands.Cog):
         async with request("GET", URL) as response:
             if response.status == 200:
                 data = await response.json()
-                joke_embed = discord.Embed(title= '**' + (data.get('setup')) + '**', description='**||' + (data.get('delivery')) + '||**')
+                joke_embed = discord.Embed(
+                    title='**' + (data.get('setup')) + '**', description='**||' + (data.get('delivery')) + '||**')
                 joke_embed.set_author(name='Type: ' + (data.get('category')))
-                await ctx.send(embed = joke_embed)
+                await ctx.send(embed=joke_embed)
 
     @commands.command(name='meme')
     async def meme(self, ctx):
@@ -76,7 +80,8 @@ class RandomCommands(commands.Cog):
         async with request('GET', URL, headers={}) as response:
             if response.status == 200:
                 data = await response.json()
-                meme_embed = discord.Embed(title=data['category'].capitalize(), description=data['caption'].capitalize(), timestamp=ctx.message.created_at, color=color)
+                meme_embed = discord.Embed(title=data['category'].capitalize(
+                ), description=data['caption'].capitalize(), timestamp=ctx.message.created_at, color=color)
                 meme_embed.set_image(url=data['image'])
                 await ctx.send(embed=meme_embed)
             else:
@@ -88,6 +93,7 @@ class RandomCommands(commands.Cog):
         response = requests.get(URL)
         data = response.json()['slip']
         await ctx.send(data.get('advice'))
+
 
 def setup(bot):
     bot.add_cog(RandomCommands(bot))

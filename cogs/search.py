@@ -2,12 +2,20 @@ from googlesearch import search
 from discord.ext import commands
 import aiohttp
 import discord
+import time
 color = 0x05cffc
 
 class Search(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        time.sleep(0.4)
+        print('Search Commands | Cog Loaded')    
+    
+    
+    
     @commands.command()
     async def search(self, ctx, *, query):
     	author = ctx.author.mention
